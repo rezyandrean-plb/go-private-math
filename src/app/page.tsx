@@ -12,12 +12,15 @@ import {
   Star,
   Phone,
   Mail,
-  MapPin
+  MapPin,
+  Menu,
+  X
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +31,38 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (isMobileMenuOpen && !target.closest('header')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -63,6 +98,8 @@ export default function Home() {
                 Go Private Math
               </span>
             </motion.div>
+            
+            {/* Desktop Navigation */}
             <motion.nav 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -89,7 +126,80 @@ export default function Home() {
                   : 'text-white hover:text-blue-200'
               }`}>Kontak</a>
             </motion.nav>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="md:hidden p-2 rounded-lg transition-colors"
+              onClick={toggleMobileMenu}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className={`h-6 w-6 ${isScrolled ? 'text-gray-700' : 'text-white'}`} />
+              ) : (
+                <Menu className={`h-6 w-6 ${isScrolled ? 'text-gray-700' : 'text-white'}`} />
+              )}
+            </motion.button>
           </div>
+
+          {/* Mobile Menu */}
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ 
+              opacity: isMobileMenuOpen ? 1 : 0,
+              height: isMobileMenuOpen ? 'auto' : 0
+            }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden overflow-hidden"
+          >
+            <nav className="py-4 space-y-4 border-t border-gray-200/20">
+              <a 
+                href="#beranda" 
+                onClick={closeMobileMenu}
+                className={`block py-2 transition-colors ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-blue-600' 
+                    : 'text-white hover:text-blue-200'
+                }`}
+              >
+                Beranda
+              </a>
+              <a 
+                href="#layanan" 
+                onClick={closeMobileMenu}
+                className={`block py-2 transition-colors ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-blue-600' 
+                    : 'text-white hover:text-blue-200'
+                }`}
+              >
+                Layanan
+              </a>
+              <a 
+                href="#harga" 
+                onClick={closeMobileMenu}
+                className={`block py-2 transition-colors ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-blue-600' 
+                    : 'text-white hover:text-blue-200'
+                }`}
+              >
+                Harga
+              </a>
+              <a 
+                href="#kontak" 
+                onClick={closeMobileMenu}
+                className={`block py-2 transition-colors ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-blue-600' 
+                    : 'text-white hover:text-blue-200'
+                }`}
+              >
+                Kontak
+              </a>
+            </nav>
+          </motion.div>
         </div>
       </header>
 
