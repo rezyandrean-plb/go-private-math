@@ -21,8 +21,15 @@ import { useState, useEffect } from 'react';
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       setIsScrolled(scrollTop > 50);
@@ -30,9 +37,11 @@ export default function Home() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [mounted]);
 
   useEffect(() => {
+    if (!mounted) return;
+    
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -42,9 +51,11 @@ export default function Home() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, mounted]);
 
   useEffect(() => {
+    if (!mounted) return;
+    
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
       if (isMobileMenuOpen && !target.closest('header')) {
@@ -54,7 +65,7 @@ export default function Home() {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, mounted]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -82,7 +93,7 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Header */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled 
+        mounted && isScrolled 
           ? 'bg-white shadow-lg' 
           : 'bg-transparent backdrop-blur-sm'
       }`}>
@@ -93,8 +104,12 @@ export default function Home() {
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center space-x-2"
             >
-              <Calculator className={`h-8 w-8 ${isScrolled ? 'text-blue-600' : 'text-white'}`} />
-              <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
+              <img 
+                src="/images/go-private-math.webp" 
+                alt="Go Private Math Logo" 
+                className="h-8 w-auto"
+              />
+              <span className={`text-2xl font-bold ${mounted && isScrolled ? 'text-gray-900' : 'text-white'}`}>
                 Go Private Math
               </span>
             </motion.div>
@@ -106,22 +121,22 @@ export default function Home() {
               className="hidden md:flex space-x-8"
             >
               <a href="#beranda" className={`transition-colors ${
-                isScrolled 
+                mounted && isScrolled 
                   ? 'text-gray-700 hover:text-blue-600' 
                   : 'text-white hover:text-blue-200'
               }`}>Beranda</a>
               <a href="#layanan" className={`transition-colors ${
-                isScrolled 
+                mounted && isScrolled 
                   ? 'text-gray-700 hover:text-blue-600' 
                   : 'text-white hover:text-blue-200'
               }`}>Layanan</a>
               <a href="#harga" className={`transition-colors ${
-                isScrolled 
+                mounted && isScrolled 
                   ? 'text-gray-700 hover:text-blue-600' 
                   : 'text-white hover:text-blue-200'
               }`}>Harga</a>
               <a href="#kontak" className={`transition-colors ${
-                isScrolled 
+                mounted && isScrolled 
                   ? 'text-gray-700 hover:text-blue-600' 
                   : 'text-white hover:text-blue-200'
               }`}>Kontak</a>
@@ -136,9 +151,9 @@ export default function Home() {
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (
-                <X className={`h-6 w-6 ${isScrolled ? 'text-gray-700' : 'text-white'}`} />
+                <X className={`h-6 w-6 ${mounted && isScrolled ? 'text-gray-700' : 'text-white'}`} />
               ) : (
-                <Menu className={`h-6 w-6 ${isScrolled ? 'text-gray-700' : 'text-white'}`} />
+                <Menu className={`h-6 w-6 ${mounted && isScrolled ? 'text-gray-700' : 'text-white'}`} />
               )}
             </motion.button>
           </div>
@@ -158,7 +173,7 @@ export default function Home() {
                 href="#beranda" 
                 onClick={closeMobileMenu}
                 className={`block py-2 transition-colors ${
-                  isScrolled 
+                  mounted && isScrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
                     : 'text-white hover:text-blue-200'
                 }`}
@@ -169,7 +184,7 @@ export default function Home() {
                 href="#layanan" 
                 onClick={closeMobileMenu}
                 className={`block py-2 transition-colors ${
-                  isScrolled 
+                  mounted && isScrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
                     : 'text-white hover:text-blue-200'
                 }`}
@@ -180,7 +195,7 @@ export default function Home() {
                 href="#harga" 
                 onClick={closeMobileMenu}
                 className={`block py-2 transition-colors ${
-                  isScrolled 
+                  mounted && isScrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
                     : 'text-white hover:text-blue-200'
                 }`}
@@ -191,7 +206,7 @@ export default function Home() {
                 href="#kontak" 
                 onClick={closeMobileMenu}
                 className={`block py-2 transition-colors ${
-                  isScrolled 
+                  mounted && isScrolled 
                     ? 'text-gray-700 hover:text-blue-600' 
                     : 'text-white hover:text-blue-200'
                 }`}
@@ -224,6 +239,26 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
+            {/* Logo with entrance effect */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5, y: -50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ 
+                duration: 1.2, 
+                delay: 0.2,
+                type: "spring",
+                stiffness: 100,
+                damping: 15
+              }}
+              className="mb-8"
+            >
+              <img 
+                src="/images/go-private-math.webp" 
+                alt="Go Private Math Logo" 
+                className="h-24 md:h-32 w-auto mx-auto drop-shadow-2xl"
+              />
+            </motion.div>
+            
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
               Solusi Matematika
               <span className="text-blue-100 block drop-shadow-lg">Terpercaya</span>

@@ -15,6 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Go Private Math - Les Matematika Madiun",
   description: "Solusi matematika terpercaya dengan tutor berpengalaman di Madiun. Dapatkan bantuan matematika berkualitas untuk semua tingkat pendidikan.",
+  icons: {
+    icon: '/images/go-private-math.webp',
+    shortcut: '/images/go-private-math.webp',
+    apple: '/images/go-private-math.webp',
+  },
 };
 
 export default function RootLayout({
