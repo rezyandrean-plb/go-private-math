@@ -546,7 +546,7 @@ export default function Home() {
               },
               {
                 name: "Budi Santoso",
-                role: "Mahasiswa",
+                role: "Siswa SD",
                 content: "Tutor sangat sabar dan profesional. Soal-soal yang sulit jadi mudah dipahami.",
                 rating: 5
               },
