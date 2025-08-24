@@ -269,11 +269,17 @@ export default function Home() {
           >
             <motion.div 
               variants={fadeInUp}
-              className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
             >
-              <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
-                <Users className="h-8 w-8 text-white" />
-              </div>
+              {/* Image for Student Registration */}
+              <div 
+                className="w-full h-48 mb-6 rounded-lg overflow-hidden"
+                style={{
+                  backgroundImage: 'url("https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
+              ></div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Pendaftaran Murid</h3>
               <p className="text-gray-700 mb-4">
                 Daftar sebagai murid untuk mendapatkan akses ke semua layanan matematika kami.
@@ -284,26 +290,38 @@ export default function Home() {
 
             <motion.div 
               variants={fadeInUp}
-              className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
             >
-              <div className="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mb-6">
-                <BookOpen className="h-8 w-8 text-white" />
-              </div>
+              {/* Image for Assignment Completion */}
+              <div 
+                className="w-full h-48 mb-6 rounded-lg overflow-hidden"
+                style={{
+                  backgroundImage: 'url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
+              ></div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Pengerjaan Tugas</h3>
               <p className="text-gray-700 mb-4">
                 Kirim tugas matematika Anda dan kami akan membantu menyelesaikannya dengan detail.
               </p>
-              <div className="text-2xl font-bold text-black">Rp 50.000</div>
+              <div className="text-2xl font-bold text-green-600">Rp 50.000</div>
               <div className="text-sm text-gray-500">Per soal</div>
             </motion.div>
 
             <motion.div 
               variants={fadeInUp}
-              className="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
             >
-              <div className="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mb-6">
-                <MessageCircle className="h-8 w-8 text-white" />
-              </div>
+              {/* Image for Consultation */}
+              <div 
+                className="w-full h-48 mb-6 rounded-lg overflow-hidden"
+                style={{
+                  backgroundImage: 'url("https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
+              ></div>
               <h3 className="text-xl font-semibold text-gray-800 mb-4">Konsultasi</h3>
               <p className="text-gray-700 mb-4">
                 Konsultasi langsung dengan tutor matematika untuk membahas konsep yang sulit.
@@ -440,7 +458,7 @@ export default function Home() {
               </div>
               <div className="text-center">
                 <h3 className="text-2xl font-bold mb-4">Paket Premium</h3>
-                <div className="text-4xl font-bold mb-6">Rp 1.500.000</div>
+                <div className="text-4xl font-bold mb-6">Rp 1.250.000</div>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-center">
                     <CheckCircle className="h-5 w-5 text-black mr-3" />
@@ -472,8 +490,8 @@ export default function Home() {
               className="bg-white border-2 border-gray-200 rounded-xl p-8 hover:border-blue-500 transition-colors"
             >
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">Paket Unlimited</h3>
-                <div className="text-4xl font-bold text-blue-600 mb-6">Rp 3.000.000</div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">Paket Gold</h3>
+                <div className="text-4xl font-bold text-blue-600 mb-6">Rp 2.250.000</div>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-center">
                     <CheckCircle className="h-5 w-5 text-black mr-3" />
